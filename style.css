@@ -1,0 +1,45 @@
+body {
+	/* background: url(img/download\ \(1\).jpeg) no-repeat center center fixed; */
+	background-size: cover;	
+}
+
+.main-section {
+	margin: 0 auto;
+	margin-top: 250px;
+	padding: 0;
+}
+
+.modal-content {
+	background-color: rgba(100,100,100,0);
+	padding: 0 18px;
+	border: 0;
+}
+
+.form-group {
+	margin-top: 25px;
+	margin-bottom: 25px;	
+}
+
+.form-group input {
+	height: 42px;
+	border-radius: 20px;
+	border: 0;
+	font-size: 18px;
+	background-color: #d1d1d1; 
+}
+
+button {
+	width: 50%;
+	margin: 5px 0 25px;
+}
+
+.btn {
+	font-size: 19px;
+	padding: 7px 14px;
+	border-radius: 10px;
+}
+
+#errormessage {
+	font-size: 18px;
+	color: #f9d13e;
+}

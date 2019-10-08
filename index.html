@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Order Management</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-auth.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyAuRSVlGRGzO6JKSjDNSfbrzKfUkqS0IaM",
+            authDomain: "canteen-order.firebaseapp.com",
+            databaseURL: "https://canteen-order.firebaseio.com",
+            projectId: "canteen-order",
+            storageBucket: "canteen-order.appspot.com",
+            messagingSenderId: "842895759507",
+            appId: "1:842895759507:web:434f1bf0cd894caa0f5566",
+            measurementId: "G-72RSQ208W2"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+    </script>
+
+    <!-- Angular JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-route.js"></script>
+
+    <script src="app.module.js"></script>
+    <script src="app.config.js"></script>
+
+    <script src="login/login.module.js"></script>
+    <script src="login/login.component.js"></script>
+
+    <script src="dashboard/dashboard.module.js"></script>
+    <script src="dashboard/dashboard.component.js"></script>
+
+    <script src="hotel/hotel.module.js"></script>
+    <script src="hotel/hotel.component.js"></script>
+</head>
+
+<body>
+    <div ng-view>
+
+    </div>
+
+    <!-- Custom JS -->
+    <!-- <script src="index.js"></script> -->
+</body>
+
+</html>
