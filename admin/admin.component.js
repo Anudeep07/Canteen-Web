@@ -10,6 +10,7 @@ angular.
 
             $scope.columns = [];
             $scope.rows = [];
+            $scope.details = {};
             $scope.user = 'Hotel';
 
             this.logout = function logout() {
@@ -52,6 +53,24 @@ angular.
                         $scope.rows = arr;
                         $scope.columns = ['name', 'address'];
                         $scope.user = 'Hotel';
+                        $scope.details = [
+                            {
+                                fieldName: 'Name',
+                                type: 'text'
+                            },
+                            {
+                                fieldName: 'Address',
+                                type: 'text'
+                            },
+                            {
+                                fieldName: 'Email',
+                                type: 'email'
+                            },
+                            {
+                                fieldName: 'Password',
+                                type: 'password'
+                            }
+                        ];
                         $scope.$apply();
                     });
             };
@@ -67,10 +86,28 @@ angular.
                         });
 
                         $scope.rows = arr;
-                        $scope.columns = ['name', 'userId'];
+                        $scope.columns = ['name'];
                         $scope.user = 'Admin';
+                        $scope.details = [
+                            {
+                                fieldName: 'Name',
+                                type: 'text'
+                            },
+                            {
+                                fieldName: 'Email',
+                                type: 'email'
+                            },
+                            {
+                                fieldName: 'Password',
+                                type: 'password'
+                            }
+                        ];
                         $scope.$apply();
                     });
+            };
+
+            this.addNewItem = () => {
+                console.log(document.querySelector('#Email').value);
             };
 
             this.fetchHotelDetails();
