@@ -5,23 +5,25 @@ angular.
             $routeProvider.
                 when('/login', {
                     resolve: {
-                        "check": function ($location, $rootScope) {
-                            if($rootScope.user) {
-                                $location.path('/dashboard');
+                        "check": function($location, $rootScope) {
+                            if($rootScope.user) { 
+                                $location.path('/admin');
+                                $scope.$apply();
                             }
                         }
                     },
                     template: '<login></login>'
                 }).
-                when('/dashboard', {
+                when('/admin', {
                     resolve: {
                         "check": function($location, $rootScope) {
                             if(!$rootScope.user) { 
                                 $location.path('/login');
+                                $scope.$apply();
                             }
                         }
                     },
-                    template: '<dashboard></dashboard>'
+                    template: '<admin></admin>'
                 }).
                 when('/hotel', {
                     template: '<hotel></hotel>'

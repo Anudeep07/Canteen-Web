@@ -4,6 +4,6 @@
 let myApp = angular.module('myApp', [
   'ngRoute',
   'login',
-  'dashboard',
+  'admin',
   'hotel'
 ]);            

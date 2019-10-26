@@ -1,5 +1,5 @@
 'use strict';
 
-angular.module('dashboard', [
+angular.module('admin', [
     'ngRoute'
 ]);
