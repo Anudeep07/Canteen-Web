@@ -22,10 +22,12 @@ angular.
               querySnapshot.forEach(doc => {
                 if (doc.data().type == 'Admin') {
                   // go to Admin page
+                  console.log('going to admin');
                   $location.path('/admin');
                   $scope.$apply();
-                } else {
+                } else if(doc.data().type == 'Hotel') {
                   //go to Hotel
+                  console.log('going to hotel');
                   $location.path('/hotel');
                   $scope.$apply();
                 }
@@ -39,9 +41,8 @@ angular.
 
         firebase.auth().signInWithEmailAndPassword(self.username, self.password).catch(function (error) {
           // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          console.log('error ' + errorCode + ': ' + errorMessage);
+          console.log('error ' + error.code + ': ' + error.message);
+          $('#errormessage').html(error.message);
         });
       };
     }

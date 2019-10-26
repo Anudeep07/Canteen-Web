@@ -12,6 +12,7 @@ angular.
             $scope.rows = [];
             $scope.details = {};
             $scope.user = 'Hotel';
+            $scope.userName = $rootScope.user.email;
 
             this.logout = function logout() {
                 firebase.auth().signOut().then(function() {
@@ -41,7 +42,7 @@ angular.
             };
 
             this.fetchHotelDetails = () => {
-                db.collection('Hotel')
+                db.collection('User').where('type', '==', 'Hotel')
                     .get()
                     .then(querySnapshot => {
                         let arr = [];
@@ -107,7 +108,41 @@ angular.
             };
 
             this.addNewItem = () => {
-                console.log(document.querySelector('#Email').value);
+                // 1. Get email and password. 
+                // 2. Create new user
+                // Check type of user and create respective entry in User collection
+
+                let email = $('#Email').val();
+                let password = $('#Password').val();
+                let name = $('#Name').val();
+
+                
+
+                if(password.length < 6) {
+                    alert('Password needs to be at least 6 characters!');
+                    return;
+                }
+
+                firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
+                    console.log(firebase.auth().currentUser.uid);
+
+                    db.collection('User').doc(email).set({
+                        'name': name,
+                        'type': $scope.user,
+                        'userId': firebase.auth().currentUser.uid
+                    });
+
+                    if($scope.user == 'Hotel') {
+                        db.collection('User').doc(email).set({
+                            'address': $('#Address').val()
+                        }, {merge: true});
+                    }
+                }).catch(function(error) {
+                    console.log('Error code: ' + error.code);
+                    console.log('Error: ' + error.message);
+                });
+
+                
             };
 
             this.fetchHotelDetails();

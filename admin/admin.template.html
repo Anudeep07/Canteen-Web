@@ -14,6 +14,9 @@
                 <button type="button" id="adminBtn" class="btn btn-outline-dark"
                     ng-click="$ctrl.viewAdmin()">Admin</button>
             </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">{{userName}}</a>  
+            </li>
         </ul>
 
         <button type="button" class="btn btn-primary px-3" data-toggle="modal" data-target="#exampleModal">
@@ -35,7 +38,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-6 py-3" ng-repeat="item in details">
-                                <input type="{{item.type}}" placeholder="{{item.fieldName}}" id="{{item.fieldName}}">
+                                <input type="{{item.type}}" placeholder="{{item.fieldName}}" id="{{item.fieldName}}" required>
                             </div>
                         </div>
                     </div>
