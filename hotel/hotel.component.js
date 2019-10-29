@@ -138,6 +138,11 @@ angular.
 
                 db.collection('Order').doc(docData.orderId)
                     .set(docData, {merge: true});
+
+                if(docData.status == 'completed') {
+                    $scope.orders.splice(index, 1);
+                    $scope.$apply();
+                }
             }
 
             this.fetchOrderDetails();
