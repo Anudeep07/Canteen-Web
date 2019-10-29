@@ -26,6 +26,14 @@ angular.
                     template: '<admin></admin>'
                 }).
                 when('/hotel', {
+                    resolve: {
+                        "check": function($location, $rootScope) {
+                            if(!$rootScope.user) { 
+                                $location.path('/login');
+                                $scope.$apply();
+                            }
+                        }
+                    },
                     template: '<hotel></hotel>'
                 }).
                 otherwise('/login');

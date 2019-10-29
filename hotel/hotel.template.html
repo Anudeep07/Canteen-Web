@@ -1,3 +1,81 @@
-<h1>Hotel View in progress</h1>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-<button class="btn btn-danger my-2 my-sm-0" ng-click="$ctrl.logout()">Log out</button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item px-3">
+                <button type="button" id="OrderBtn" class="btn btn-outline-dark active"
+                    ng-click="$ctrl.viewOrder()">Show Orders</button>
+            </li>
+            <li class="nav-item px-3">
+                <button type="button" id="MenuBtn" class="btn btn-outline-dark"
+                    ng-click="$ctrl.viewMenu()">Add Menu</button>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">{{userName}}</a>  
+            </li>
+        </ul>
+
+        <button type="button" class="btn btn-primary px-3" data-toggle="modal" data-target="#exampleModal">
+            Add new menu item
+        </button>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">New Item</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Add form -->
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 py-3" ng-repeat="item in details">
+                                <input type="{{item.type}}" placeholder="{{item.fieldName}}" id="{{item.fieldName}}" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-click="$ctrl.addNewItem()" data-dismiss="modal">Save changes</button>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <div class="my-2 my-lg-0 px-3">
+            <button class="btn btn-danger my-2 my-sm-0" ng-click="$ctrl.logout()">Log out</button>
+        </div>
+    </div>
+</nav>
+
+<div ng-show="isViewMenu">
+    <div class="container py-4">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-capitalize">Name</th>
+                    <th scope="col" class="text-capitalize">Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="(name, price) in menuItems">
+                    <td>{{name}}</td>
+                    <td>{{price}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div ng-show="!isViewMenu">
+    <h1>Akshay is from Mexico :D</h1>
+</div>

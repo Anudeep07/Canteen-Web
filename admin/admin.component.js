@@ -108,15 +108,9 @@ angular.
             };
 
             this.addNewItem = () => {
-                // 1. Get email and password. 
-                // 2. Create new user
-                // Check type of user and create respective entry in User collection
-
                 let email = $('#Email').val();
                 let password = $('#Password').val();
-                let name = $('#Name').val();
-
-                
+                let name = $('#Name').val();               
 
                 if(password.length < 6) {
                     alert('Password needs to be at least 6 characters!');
@@ -140,9 +134,7 @@ angular.
                 }).catch(function(error) {
                     console.log('Error code: ' + error.code);
                     console.log('Error: ' + error.message);
-                });
-
-                
+                });                
             };
 
             this.fetchHotelDetails();
