@@ -133,7 +133,7 @@ angular.
                     }
                 }).catch(function(error) {
                     console.log('Error code: ' + error.code);
-                    console.log('Error: ' + error.message);
+                    alert('Error: ' + error.message);
                 });                
             };
 

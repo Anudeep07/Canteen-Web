@@ -8,6 +8,7 @@ angular.
             var db = firebase.firestore();
             let self = this;
 
+            $scope.orders = [];
             $scope.isViewMenu = false;
             $scope.menuItems = {};
             $scope.details = [
@@ -89,12 +90,55 @@ angular.
                 $('#Price').val('');
             };
 
-            
+            // Set realtime listener for Orders
+            db.collection('Order').where('hotelId', '==', $scope.userName)
+                .onSnapshot(function(querySnapshot) {
+                    querySnapshot.forEach(function(doc) {
+                        let docData = doc.data();
+                        if(docData.status != 'cooking') {
+                            return;
+                        }
+
+                        let totalCost = 0;
+                        docData.items.forEach(item => {
+                            totalCost += item.price * item.quantity;
+                        });
+
+                        docData["totalCost"] = totalCost;
+                        docData["orderId"] = doc.id;
+                        $scope.orders.push(docData);
+                    });
+                });
+
+            // Set realtime listener for Menu
              db.collection('User').doc($scope.userName)
                 .onSnapshot(function(doc) {
                     $scope.menuItems = doc.data().menu;
                     $scope.$apply();
                 });
+
+            $scope.changeOrderStatus = index => {
+                console.log(index);
+                console.log($scope.orders[index]);
+
+                let docData = $scope.orders[index];
+                let orderBtn = $('#currentOrderBtn');
+
+                if(docData.status == 'cooking') {
+                    docData.status = 'paymentPending';
+
+                    orderBtn.html('Close Order');
+                    orderBtn.removeClass('btn-info');
+                    orderBtn.addClass('btn-danger');
+                } else if(docData.status == 'paymentPending') {
+                    docData.status = 'completed';
+                } else if(docData.status == 'completed') {
+                    return;
+                }
+
+                db.collection('Order').doc(docData.orderId)
+                    .set(docData, {merge: true});
+            }
 
             this.fetchOrderDetails();
         }
