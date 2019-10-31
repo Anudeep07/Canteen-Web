@@ -95,8 +95,16 @@ angular.
                 .onSnapshot(function(querySnapshot) {
                     querySnapshot.forEach(function(doc) {
                         let docData = doc.data();
-                        if(docData.status != 'cooking') {
-                            return;
+
+                        // Check if order is already being shown
+                        let existingElementIndex = $scope.orders.findIndex(element => {
+                            return element.orderId == doc.id;
+                        });
+
+                        if(existingElementIndex != -1) {
+                            // element already existing in the array
+                            // remove the old one
+                            $scope.orders.splice(existingElementIndex, 1);
                         }
 
                         let totalCost = 0;
@@ -104,9 +112,25 @@ angular.
                             totalCost += item.price * item.quantity;
                         });
 
-                        docData["totalCost"] = totalCost;
-                        docData["orderId"] = doc.id;
+                        docData['totalCost'] = totalCost;
+                        docData['orderId'] = doc.id;
+
+                        if(docData.status === 'cooking') {
+                            docData['style'] = 'btn-info';  
+                            docData['message'] = 'Completed Cooking';
+                        } else if(docData.status === 'paymentPending') {
+                            docData['style'] = 'btn-danger';  
+                            docData['message'] = 'Completed Payment';
+                        } else {
+                            // status is completed
+                            return;
+                        }
+
+                        console.log(docData);
+
+                        // Instead of pushing, we need to first check if it already exists.
                         $scope.orders.push(docData);
+                        $scope.$apply();
                     });
                 });
 
@@ -118,16 +142,17 @@ angular.
                 });
 
             $scope.changeOrderStatus = index => {
+                console.log($('#currentOrderBtn' + index));
                 console.log(index);
                 console.log($scope.orders[index]);
 
                 let docData = $scope.orders[index];
-                let orderBtn = $('#currentOrderBtn');
+                let orderBtn = $('#currentOrderBtn' + index);
 
                 if(docData.status == 'cooking') {
                     docData.status = 'paymentPending';
 
-                    orderBtn.html('Close Order');
+                    orderBtn.html('Completed Payment');
                     orderBtn.removeClass('btn-info');
                     orderBtn.addClass('btn-danger');
                 } else if(docData.status == 'paymentPending') {
